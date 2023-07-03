@@ -8,6 +8,7 @@ const API_KEY =
 axios.defaults.headers.common['x-api-key'] = API_KEY;
 
 const selectElement = document.querySelector('.breed-select');
+const selectContainer = document.querySelector('.breed-select-container'); // Додано
 const loaderElement = document.querySelector('.loader');
 const errorElement = document.querySelector('.error');
 const catInfoElement = document.querySelector('.cat-info');
@@ -55,6 +56,7 @@ async function fetchBreeds() {
     const response = await axios.get('https://api.thecatapi.com/v1/breeds');
     const breeds = response.data;
     populateBreeds(breeds);
+    selectContainer.style.display = 'block';
   } catch (error) {
     console.error(error);
     showError();
@@ -94,5 +96,8 @@ selectElement.addEventListener('change', function () {
     hideCatInfo();
   }
 });
+
+selectContainer.style.display = 'none';
+showLoader();
 
 fetchBreeds();
